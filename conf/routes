@@ -9,7 +9,7 @@ POST     /postcar                       controllers.HomeController.postCarInfo
 GET      /getcar                        controllers.HomeController.getAllCarInfo
 
 
-POST     /postfile                      controllers.HomeController.postFile
+POST     /postfile                      controllers.MongoGRID.postFile
 
 
 
