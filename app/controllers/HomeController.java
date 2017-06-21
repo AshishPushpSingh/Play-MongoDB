@@ -10,6 +10,8 @@ import com.mongodb.MongoClient;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.result.DeleteResult;
+import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
 import play.Logger;
 import play.libs.Json;
@@ -19,6 +21,15 @@ import play.mvc.Result;
 
 import java.util.concurrent.CompletableFuture;
 
+
+ /*
+        Json I am using to as post payload.
+             {
+                  "name": "Mercedes-Benz AMG GT",
+                  "colour": "white",
+                  "topSpeed": 280
+             }
+ */
 
 //Using Java-8 Future Responses and promises, for making the application more concurrent.
 //This is a sample class which demonstrates simple mongoDB operations and calls.
@@ -96,29 +107,19 @@ public class HomeController extends Controller {
     public CompletableFuture<Result> deleteCarInfo(String modelName){
 
         return CompletableFuture.supplyAsync(() -> {
-            // Getting all the records from MongoDB Collection and storing it into an Iterable Object.
-            FindIterable<Document> allCars = collection.find(new Document("name", modelName));
-            //Converting FindIterable<Document> object to JsonNode.
-            JsonNode jsonNode = Json.toJson(allCars);
-            Logger.info("List of Cars ::: {}", jsonNode.toString());
-            //Converting the JsonNode Object to string and returning the same.
-            return ok(Json.asciiStringify(jsonNode)).as("application/json");
+            // Deleting all the records from MongoDB Collection using the name filter.
+            DeleteResult deleteResult = collection.deleteMany(new Document("name", modelName));
+            return ok(deleteResult.getDeletedCount() + " records deleted...!").as("application/json");
         }, ec.current());
     }
 
+    public CompletableFuture<Result> updateCarInfo(String oldModelName, String newModelName){
 
-    public Result index() {
-        return ok("Your new application is ready.");
+        return CompletableFuture.supplyAsync(() -> {
+            // Updating all the records from MongoDB Collection using the oldModelName filter to newModelName.
+            UpdateResult updateResult = collection.updateMany(new Document("name", oldModelName), new Document("name", newModelName));
+            return ok(updateResult.getModifiedCount() + " records deleted...!").as("application/json");
+        }, ec.current());
     }
-
-
-    /*
-        Json I am using to as post payload.
-             {
-                  "name": "Mercedes-Benz AMG GT",
-                  "colour": "white",
-                  "topSpeed": 280
-             }
-    */
 
 }

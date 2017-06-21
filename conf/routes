@@ -3,15 +3,26 @@
 # ~~~~
 
 #------------------------------------------------------------------------------------------------------------------------
+# Mongo CRUD operations
+#------------------------------------------------------------------------------------------------------------------------
 
+POST     /postcar                                                   controllers.HomeController.postCarInfo
 
-POST     /postcar                       controllers.HomeController.postCarInfo
-GET      /getcar                        controllers.HomeController.getAllCarInfo
+GET      /getallcar                                                 controllers.HomeController.getAllCarInfo
+GET      /getcar/:modelName                                         controllers.HomeController.getCarInfo(modelName)
+GET      /deletecar/:modelName                                      controllers.HomeController.deleteCarInfo(modelName)
+GET      /updatecar/:oldModelName/:newModelName                     controllers.HomeController.updateCarInfo(oldModelName, newModelName)
 
+#------------------------------------------------------------------------------------------------------------------------
+#Mongo GridFS(Files) related endpoints.
+#------------------------------------------------------------------------------------------------------------------------
 
-POST     /postfile                      controllers.MongoGRID.postFile
+POST     /postfile                                                  controllers.MongoGRID.postSingleFileUsingKey
+POST     /postmultiplefiles                                         controllers.MongoGRID.postMultipleFiles
+POST     /postFileAsRaw                                             controllers.MongoGRID.postMultipleFiles
 
-
+GET     /getfile/:fileName                                          controllers.MongoGRID.getFile(fileName)
+GET     /deletefile/:fileName                                       controllers.MongoGRID.deleteFile(fileName)
 
 #------------------------------------------------------------------------------------------------------------------------
 
