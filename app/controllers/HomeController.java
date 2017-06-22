@@ -13,6 +13,7 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 import play.Logger;
 import play.libs.Json;
 import play.libs.concurrent.HttpExecutionContext;
@@ -36,9 +37,10 @@ import java.util.concurrent.CompletableFuture;
 //This can be made more complex and modular but here, I have kept it simple enough for everyone to understand.
 public class HomeController extends Controller {
 
-    //creating an explicit executor.
+    //creating an explicit executor. We can also used java.util.concurrent.Executor for the same.
     @Inject
     HttpExecutionContext ec;
+
     /*
      Mongo DB must be installed on local machine in order to this or you can pass the IP of machine on which you installed
      Mongo at the place of localhost.
@@ -113,12 +115,16 @@ public class HomeController extends Controller {
         }, ec.current());
     }
 
-    public CompletableFuture<Result> updateCarInfo(String oldModelName, String newModelName){
+    public CompletableFuture<Result> updateCarInfo(String oldModelName, String newColour){
 
         return CompletableFuture.supplyAsync(() -> {
             // Updating all the records from MongoDB Collection using the oldModelName filter to newModelName.
-            UpdateResult updateResult = collection.updateMany(new Document("name", oldModelName), new Document("name", newModelName));
-            return ok(updateResult.getModifiedCount() + " records deleted...!").as("application/json");
+            Bson filter = new Document("name", oldModelName);
+            Bson newValue = new Document("colour", newColour);
+            Bson updateOperationDocument = new Document("$set", newValue);
+            collection.updateOne(filter, updateOperationDocument);
+            UpdateResult updateResult = collection.updateMany(filter, updateOperationDocument);
+            return ok(updateResult.getMatchedCount() + " records updated...!").as("application/json");
         }, ec.current());
     }
 

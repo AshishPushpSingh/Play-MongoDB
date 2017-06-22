@@ -26,7 +26,7 @@ import java.util.concurrent.CompletableFuture;
 public class MongoGRID extends Controller {
 
     @Inject
-    private HttpExecutionContext ec;
+    HttpExecutionContext ec;
     private MongoClient mongo = new MongoClient("localhost", 27017);
     private GridFS fileBucket;
 
@@ -69,11 +69,11 @@ public class MongoGRID extends Controller {
             File file = (File) filePart.getFile();
             try {
                 // Saving file into GridFS
-            fileBucket.createFile(new FileInputStream(file), filePart.getFilename(), true).save();
+                fileBucket.createFile(new FileInputStream(file), filePart.getFilename(), true).save();
             } catch (FileNotFoundException e) {
                 Logger.info("Error while saving the file into GridFS fileBucket ", e);
             }
-            return ok("Saved the File  " + filePart.getFilename() +".");
+            return ok("Saved the File  " + filePart.getFilename() + ".");
         }, ec.current());
     }
 
@@ -89,7 +89,7 @@ public class MongoGRID extends Controller {
             } catch (FileNotFoundException e) {
                 Logger.info("Error while saving the file into GridFS fileBucket ", e);
             }
-            return ok("Saved the File  " + file.getName() +".");
+            return ok("Saved the File  " + file.getName() + ".");
         }, ec.current());
     }
 
@@ -99,17 +99,16 @@ public class MongoGRID extends Controller {
         return CompletableFuture.supplyAsync(() -> {
             //Getting the file from MongoDB.
             InputStream gridFSDBFileInputStream = fileBucket.findOne(fileName).getInputStream();
-            return ok( gridFSDBFileInputStream );
+            return ok().sendInputStream(gridFSDBFileInputStream);
         }, ec.current());
     }
 
     //This method returns the passed file and returns in form of InputStream.
     public CompletableFuture<Result> deleteFile(String fileName) {
-
         return CompletableFuture.supplyAsync(() -> {
             //Deleting the file from MongoDB.
             fileBucket.remove(fileName);
-            return ok( "File Deleted SuccessFully" );
+            return ok("File Deleted SuccessFully");
         }, ec.current());
     }
 

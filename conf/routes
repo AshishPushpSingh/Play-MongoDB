@@ -11,7 +11,7 @@ POST     /postcar                                                   controllers.
 GET      /getallcar                                                 controllers.HomeController.getAllCarInfo
 GET      /getcar/:modelName                                         controllers.HomeController.getCarInfo(modelName)
 GET      /deletecar/:modelName                                      controllers.HomeController.deleteCarInfo(modelName)
-GET      /updatecar/:oldModelName/:newModelName                     controllers.HomeController.updateCarInfo(oldModelName, newModelName)
+GET      /updatecar/:oldModelName/:newColour                        controllers.HomeController.updateCarInfo(oldModelName, newColour)
 
 #------------------------------------------------------------------------------------------------------------------------
 #Mongo GridFS(Files) related endpoints.
@@ -25,6 +25,5 @@ GET     /getfile/:fileName                                          controllers.
 GET     /deletefile/:fileName                                       controllers.MongoGRID.deleteFile(fileName)
 
 #------------------------------------------------------------------------------------------------------------------------
-
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
