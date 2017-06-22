@@ -1,35 +1,36 @@
-[<img src="https://img.shields.io/travis/playframework/play-java-starter-example.svg"/>](https://travis-ci.org/playframework/play-java-starter-example)
+This is a sample java project in which we have performed all the CRUD operation on Json Data using REST endpoints.
 
-# Play Java Starter
+We have used MongoDB as DataBase in this experiment. MongoDB is a free and open-source cross-platform document-oriented database
+program. Classified as a NoSQL database program, MongoDB uses JSON-like documents with schemas
 
-This is a starter application that shows how Play works.  Please see the documentation at https://www.playframework.com/documentation/latest/Home for more details.
+We have also performed file uploads using various methods supported by Play Framework.
+We have also explored mongo GRIDFS which is mainly used to save files into MongoDB.
 
-## Running
+Endpoints:-
+-------------------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------------------------------------------------
+# Mongo CRUD operations
+#------------------------------------------------------------------------------------------------------------------------
 
-Run this using [sbt](http://www.scala-sbt.org/).  If you downloaded this project from http://www.playframework.com/download then you'll find a prepackaged version of sbt in the project directory:
+POST     /postcar                                                   controllers.HomeController.postCarInfo
 
-```
-sbt run
-```
+GET      /getallcar                                                 controllers.HomeController.getAllCarInfo
+GET      /getcar/:modelName                                         controllers.HomeController.getCarInfo(modelName)
+GET      /deletecar/:modelName                                      controllers.HomeController.deleteCarInfo(modelName)
+GET      /updatecar/:oldModelName/:newColour                        controllers.HomeController.updateCarInfo(oldModelName, newColour)
 
-And then go to http://localhost:9000 to see the running web application.
+#------------------------------------------------------------------------------------------------------------------------
+#Mongo GridFS(Files) related endpoints.
+#------------------------------------------------------------------------------------------------------------------------
 
-## Controllers
+POST     /postfile                                                  controllers.MongoGRID.postSingleFileUsingKey
+POST     /postmultiplefiles                                         controllers.MongoGRID.postMultipleFiles
+POST     /postFileAsRaw                                             controllers.MongoGRID.postMultipleFiles
 
-There are several demonstration files available in this template.
+GET     /getfile/:fileName                                          controllers.MongoGRID.getFile(fileName)
+GET     /deletefile/:fileName                                       controllers.MongoGRID.deleteFile(fileName)
 
-- HomeController.java:
-
-  Shows how to handle simple HTTP requests.
-
-- AsyncController.java:
-
-  Shows how to do asynchronous programming when handling a request.
-
-- CountController.java:
-
-  Shows how to inject a component into a controller and use the component when
-  handling requests.
+#------------------------------------------------------------------------------------------------------------------------
 
 ## Components
 
@@ -55,3 +56,6 @@ There are several demonstration files available in this template.
 - ExampleFilter.java
 
   A simple filter that adds a header to every response.
+
+
+                                                                                                -Ashish Pushp
