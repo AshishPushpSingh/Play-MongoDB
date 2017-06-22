@@ -7,30 +7,30 @@ We have also performed file uploads using various methods supported by Play Fram
 We have also explored mongo GRIDFS which is mainly used to save files into MongoDB.
 
 Endpoints:-
--------------------------------------------------------------------------------------------------------------------------
-#------------------------------------------------------------------------------------------------------------------------
-# Mongo CRUD operations
-#------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
+Mongo CRUD operations
+----------------------------------------------------------------------------------------------------------------
 
-POST     /postcar                                                   controllers.HomeController.postCarInfo
+POST     /postcar                               controllers.HomeController.postCarInfo
 
-GET      /getallcar                                                 controllers.HomeController.getAllCarInfo
-GET      /getcar/:modelName                                         controllers.HomeController.getCarInfo(modelName)
-GET      /deletecar/:modelName                                      controllers.HomeController.deleteCarInfo(modelName)
-GET      /updatecar/:oldModelName/:newColour                        controllers.HomeController.updateCarInfo(oldModelName, newColour)
+GET      /getallcar                             controllers.HomeController.getAllCarInfo
+GET      /getcar/:modelName                     controllers.HomeController.getCarInfo(modelName)
+GET      /deletecar/:modelName                  controllers.HomeController.deleteCarInfo(modelName)
+GET      /updatecar/:oldModelName/:newColour    controllers.HomeController.updateCarInfo(oldModelName, newColour)
 
-#------------------------------------------------------------------------------------------------------------------------
-#Mongo GridFS(Files) related endpoints.
-#------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
+Mongo GridFS(Files) related endpoints.
+----------------------------------------------------------------------------------------------------------------
 
-POST     /postfile                                                  controllers.MongoGRID.postSingleFileUsingKey
-POST     /postmultiplefiles                                         controllers.MongoGRID.postMultipleFiles
-POST     /postFileAsRaw                                             controllers.MongoGRID.postMultipleFiles
+POST     /postfile                              controllers.MongoGRID.postSingleFileUsingKey
+POST     /postmultiplefiles                     controllers.MongoGRID.postMultipleFiles
+POST     /postFileAsRaw                         controllers.MongoGRID.postMultipleFiles
 
-GET     /getfile/:fileName                                          controllers.MongoGRID.getFile(fileName)
-GET     /deletefile/:fileName                                       controllers.MongoGRID.deleteFile(fileName)
+GET     /getfile/:fileName                      controllers.MongoGRID.getFile(fileName)
+GET     /deletefile/:fileName                   controllers.MongoGRID.deleteFile(fileName)
 
-#------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
 
 ## Components
 
@@ -58,4 +58,4 @@ GET     /deletefile/:fileName                                       controllers.
   A simple filter that adds a header to every response.
 
 
-                                                                                                -Ashish Pushp
+                                                                                                #Ashish Pushp
